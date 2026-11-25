@@ -11,3 +11,16 @@
   color: var(--md-typeset-a-color);
   margin-top: 1.6em;
 }
+
+/* Predictions table: predictions evaluated for skill */
+.md-typeset .skill {
+  color: #1a5fb4;
+  font-weight: 700;
+}
+[data-md-color-scheme="slate"] .md-typeset .skill {
+  color: #62a0ea;
+}
+.md-typeset p.legend {
+  font-size: 0.85em;
+  color: var(--md-default-fg-color--light);
+}

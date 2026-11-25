@@ -21,7 +21,6 @@ metrics as zarr stores.
   MPI-ESM1-2-HR and NorESM2-MM with perfect predictors and MPI-ESM1-2-HR and NorESM2-MM with imperfect predictors
   (EC-Earth3-Veg will be added).
 
-The climate-change signal of the RegCM5-0 truth is computed once and stored in `EVALUATIONS/REFERENCE/`.
 
 ## Metrics per track
 

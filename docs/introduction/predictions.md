@@ -8,10 +8,13 @@ predictors:
 | Historical | EC-Earth3-Veg/1981-2000 | ✔ | *pending* |
 | | MPI-ESM1-2-HR/1981-2000 | ✔ | ✔ |
 | | NorESM2-MM/1981-2000 | ✔ | ✔ |
-| Mid-century | EC-Earth3-Veg/2041-2060 | ✔ | ✔ |
+| Mid-century | EC-Earth3-Veg/2041-2060 | <span class="skill">✔</span> | ✔ |
 | | MPI-ESM1-2-HR/2041-2060 | ✔ | ✔ |
 | | NorESM2-MM/2041-2060 | ✔ | ✔ |
-| Evaluation | ERA5/1981-2000 | ✔ | ✔ |
+| Evaluation | ERA5/1981-2000 | <span class="skill">✔</span> | <span class="skill">✔</span> |
+
+*Test blocks to predict with each model, by type of predictors. Blue <span class="skill">✔</span>: predictions evaluated for
+skill; black ✔: predictions used for the climate-change signal only.*
 
 That is 13 predictions per model and experiment (14 once the EC-Earth3-Veg historical imperfect predictors are available),
 each covering the 11 target variables.

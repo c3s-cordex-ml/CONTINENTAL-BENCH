@@ -1,7 +1,7 @@
 # Experiments
 
 There is one mandatory experiment and two optional ones. They differ only in the training data; all of them are tested on the
-same blocks (see [Predictions](predictions.md)). Training always uses **perfect** predictors.
+same test blocks (see [Predictions](predictions.md)). Training always uses **perfect** predictors.
 
 | Experiment | Status | Training blocks | Training years |
 |---|---|---|---|

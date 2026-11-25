@@ -39,8 +39,7 @@ specific humidity `hus`, each at 850, 700, 500 and 250 hPa (20 variables, e.g. `
 
 ### UPS-RegCM (perfect)
 
-The RegCM5-0 simulations, interpolated from the 0.11° EUR-12 grid to the 1° grid by bilinear interpolation. Predictors and
-targets come from the same simulation, so only the downscaling step has to be learned. Models are trained on these predictors, and they are also used for the perfect test.
+The RegCM5-0 simulations, interpolated from the 0.11° EUR-12 grid to the 1° grid by bilinear interpolation. Models are trained on these predictors, and they are also used for the perfect test.
 
 The 1° box is larger than the rotated EUR-12 domain: the cells outside the RegCM5-0 domain are NaN (43 % of the box), and the file
 `mask_EUR-100_ICTP_RegCM5-0_fx.nc` marks the valid cells.
@@ -59,8 +58,7 @@ at inference if your model needs it.
 
 ### ERA5 (imperfect)
 
-The ERA5 reanalysis, interpolated from 0.25° to the 1° grid by bilinear interpolation, with geopotential converted to
-geopotential height. It drives the RegCM5-0 evaluation run, and is used as imperfect predictor for the 1981-2000 evaluation period.
+The ERA5 reanalysis, interpolated from 0.25° to the 1° grid by bilinear interpolation. It drives the RegCM5-0 evaluation run, and is used as imperfect predictor for the 1981-2000 evaluation period.
 
 ## Data blocks
 
@@ -73,7 +71,15 @@ SOURCE_FILES/
 ├── mask_EUR-100_ICTP_RegCM5-0_fx.nc
 ├── train/
 │   ├── Experiment_A/
-│   │   └── EC-Earth3-Veg/    1961-1980, 2080-2099
+│   │   └── EC-Earth3-Veg/
+│   │       ├── 1961-1980/
+│   │       │   ├── predictors/
+│   │       │   │   └── predictors_EUR-100_EC-Earth3-Veg_historical_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_19610101-19801231.nc  # perfect
+│   │       │   └── target/
+│   │       │       ├── hurs_EUR-12_EC-Earth3-Veg_historical_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_19610101-19801231.nc
+│   │       │       ├── pr_EUR-12_EC-Earth3-Veg_historical_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_19610101-19801231.nc
+│   │       │       └── ...                                                                                         # 11 variables
+│   │       └── 2080-2099/                                                                                          # same layout
 │   ├── Experiment_B/
 │   │   └── EC-Earth3-Veg/    1961-1980, 2001-2014, 2015-2040, 2061-2079, 2080-2099
 │   └── Experiment_C/
@@ -82,20 +88,15 @@ SOURCE_FILES/
 │       └── NorESM2-MM/       1961-1980, 2080-2099
 └── test/
     ├── EC-Earth3-Veg/        1981-2000, 2041-2060
-    ├── MPI-ESM1-2-HR/        1981-2000, 2041-2060
+    ├── MPI-ESM1-2-HR/
+    │   ├── 1981-2000/
+    │   │   ├── predictors/
+    │   │   │   ├── predictors_EUR-100_MPI-ESM1-2-HR_historical_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_19810101-20001231.nc  # perfect
+    │   │   │   └── predictors_EUR-100_MPI-ESM1-2-HR_historical_r1i1p1f1_day_19810101-20001231.nc                      # imperfect
+    │   │   └── target/                                                                                             # 11 variables
+    │   └── 2041-2060/                                                                                              # same layout
     ├── NorESM2-MM/           1981-2000, 2041-2060
     └── ERA5/                 1981-2000
-```
-
-Each block directory `<driver>/<period>/` contains:
-
-```
-<driver>/<period>/
-├── predictors/
-│   ├── predictors_EUR-100_<driver>_<scenario>_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_<start>-<end>.nc   # perfect
-│   └── predictors_EUR-100_<driver>_<scenario>_r1i1p1f1_day_<start>-<end>.nc                       # imperfect (test blocks)
-└── target/
-    └── <var>_EUR-12_<driver>_<scenario>_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_<start>-<end>.nc        # one per variable
 ```
 
 File names follow the CORDEX-CMIP6 data reference syntax (DRS). Training blocks contain perfect predictors only; test blocks
