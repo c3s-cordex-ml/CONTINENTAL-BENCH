@@ -1,7 +1,7 @@
 # Data
 
-The benchmark combines five datasets: three sources of **predictors** on a common 1° grid and two sources of **targets** on the
-0.11° EUR-12 grid. The figure shows one day of each and the role it plays.
+The benchmark combines five datasets: two sources of **targets** on the 0.11° EUR-12 grid and three sources of **predictors** on
+a common 1° grid. The figure shows one day of each and the role it plays.
 
 ![Predictors and targets](../images/data_maps.png)
 
@@ -9,6 +9,27 @@ The benchmark combines five datasets: three sources of **predictors** on a commo
 `tas` from RegCM5-0, and ERA5-Land. Blue: data used for training and for the perfect test; orange: imperfect test; green: ground
 truth. For illustration, the GCM-driven panels show the EC-Earth3-Veg simulation on 15 January 2050 and the ERA5 panel shows
 15 January 1995.*
+
+## Targets
+
+All targets are daily fields of `uas`, `vas`, `tas`, `pr`, `hurs`, `psl`, `rsds`, `rlds`, `sfcWind`, `tasmax` and `tasmin` on the
+**EUR-12** grid (rotated pole, 0.11°, 412 × 424 grid points).
+
+### RegCM5-0
+
+The **ICTP RegCM5-0** simulations of CORDEX-CORE-CMIP6 over EUR-12. They are the ground truth for training and for every test
+with perfect predictors.
+
+| Driver | Scenarios | Variant | Calendar |
+|---|---|---|---|
+| EC-Earth3-Veg | historical, ssp370 | r1i1p1f1 | proleptic Gregorian (ssp370 ends 2099-11-30) |
+| MPI-ESM1-2-HR | historical, ssp370 | r1i1p1f1 | proleptic Gregorian |
+| NorESM2-MM | historical, ssp370 | r1i1p1f1 | 365-day (no leap years) |
+| ERA5 | evaluation | r1i1p1f1 | proleptic Gregorian |
+
+### ERA5-Land
+
+The reference of the ERA5-imperfect test, against which the emulators driven by ERA5 are compared. *Source pending.*
 
 ## Predictors
 
@@ -18,8 +39,8 @@ specific humidity `hus`, each at 850, 700, 500 and 250 hPa (20 variables, e.g. `
 
 ### UPS-RegCM (perfect)
 
-The RegCM5-0 simulations themselves, upscaled to the 1° grid. Predictors and targets come from the same simulation, so only the
-downscaling step has to be learned. Models are trained on these predictors, and they are also used for the perfect test.
+The RegCM5-0 simulations, interpolated from the 0.11° EUR-12 grid to the 1° grid by bilinear interpolation. Predictors and
+targets come from the same simulation, so only the downscaling step has to be learned. Models are trained on these predictors, and they are also used for the perfect test.
 
 The 1° box is larger than the rotated EUR-12 domain: the cells outside the RegCM5-0 domain are NaN (43 % of the box), and the file
 `mask_EUR-100_ICTP_RegCM5-0_fx.nc` marks the valid cells.
@@ -38,29 +59,8 @@ at inference if your model needs it.
 
 ### ERA5 (imperfect)
 
-The ERA5 reanalysis, interpolated from 0.25° to the 1° grid by inverse-distance weighting, with geopotential converted to
+The ERA5 reanalysis, interpolated from 0.25° to the 1° grid by bilinear interpolation, with geopotential converted to
 geopotential height. It drives the RegCM5-0 evaluation run, and is used as imperfect predictor for the 1981-2000 evaluation period.
-
-## Targets
-
-All targets are daily fields of `uas`, `vas`, `tas`, `pr`, `hurs`, `psl`, `rsds`, `rlds`, `sfcWind`, `tasmax` and `tasmin` on the
-**EUR-12** grid (rotated pole, 0.11°, 412 × 424 grid points).
-
-### RegCM5-0
-
-The **ICTP RegCM5-0** simulations of CORDEX-CORE-CMIP6 over EUR-12, in the units of the model output (e.g. `pr` in kg m-2 s-1).
-They are the ground truth for training and for every test with GCM-driven or perfect predictors.
-
-| Driver | Scenarios | Variant | Calendar |
-|---|---|---|---|
-| EC-Earth3-Veg | historical, ssp370 | r1i1p1f1 | proleptic Gregorian (ssp370 ends 2099-11-30) |
-| MPI-ESM1-2-HR | historical, ssp370 | r1i1p1f1 | proleptic Gregorian |
-| NorESM2-MM | historical, ssp370 | r1i1p1f1 | 365-day (no leap years) |
-| ERA5 | evaluation | r1i1p1f1 | proleptic Gregorian |
-
-### ERA5-Land
-
-The reference of the ERA5-imperfect test, against which the emulators driven by ERA5 are compared. *Source pending.*
 
 ## Data blocks
 
@@ -98,9 +98,8 @@ Each block directory `<driver>/<period>/` contains:
     └── <var>_EUR-12_<driver>_<scenario>_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_<start>-<end>.nc        # one per variable
 ```
 
-File names follow the CORDEX-CMIP6 data reference syntax (DRS). The perfect predictors keep the RegCM5-0 facets because they are
-RegCM5-0 output on the 1° `EUR-100` grid; the imperfect predictors drop them because no regional model is involved. Training
-blocks contain perfect predictors only; test blocks contain perfect and imperfect predictors:
+File names follow the CORDEX-CMIP6 data reference syntax (DRS). Training blocks contain perfect predictors only; test blocks
+contain perfect and imperfect predictors:
 
 | Test block | Perfect | Imperfect |
 |---|---|---|

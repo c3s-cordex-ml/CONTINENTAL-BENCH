@@ -3,6 +3,21 @@
 Evaluate your predictions with [ml-evaluation](https://github.com/c3s-cordex-ml/ml-evaluation) for every case listed in
 [Evaluation](../introduction/evaluation.md), and write the outputs to `EVALUATIONS/Experiment_<A|B|C>/<MODEL>/<case>/<season>/`.
 
+## Output structure
+
+```
+EVALUATIONS/
+├── REFERENCE/RegCM5-0/<GCM>_1981-2000_2041-2060/
+└── Experiment_<A|B|C>/
+    └── <MODEL>/
+        └── <case>/
+            └── <season>/                       # annual, DJF, MAM, JJA, SON
+                ├── <var>/metrics_<mode>_*.zarr
+                └── <var1>_<var2>/metrics_mv_*.zarr
+```
+
+## Running ml-eval
+
 *An evaluation launcher that runs all cases and creates this tree automatically is in preparation.* Until then, each case is one
 `ml-eval` call per variable and season, e.g. the `fast` metrics of `tas` for the ERA5 perfect case:
 

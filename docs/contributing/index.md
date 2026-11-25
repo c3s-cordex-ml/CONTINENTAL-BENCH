@@ -3,7 +3,7 @@
 Contributing a model to CONTINENTAL-BENCH takes five steps:
 
 1. [Download the data](download.md) blocks of the experiments you take part in.
-2. [Train your model](training.md) with deep4production and keep its training and inference configuration.
+2. [Train your model](training.md) and write its training and inference configuration in deep4production format.
 3. [Prepare your predictions](predictions.md) for every test block, named after the DRS.
 4. [Evaluate your predictions](evaluation.md) with ml-evaluation.
 5. [Submit your evaluation outputs](submission.md), together with your configuration files, through a pull request from your own branch.

@@ -12,11 +12,10 @@ same blocks (see [Predictions](predictions.md)). Training always uses **perfect*
 - **A** learns the present and the end-of-century climate of a single simulation. The mid-century test period lies *between* the
   two training periods.
 - **B** uses every year of the EC-Earth3-Veg simulation except the test periods (1981-2000 and 2041-2060), to measure the gain of
-  a longer training set. 1960, the first year of the historical run, is left out as spin-up.
+  a longer training set.
 - **C** uses the periods of A from the three GCM-driven simulations, to measure the gain of training on several driving models.
 
 ## Validation years
 
 The same four years are held out from the training blocks for validation (early stopping, model selection) in all experiments:
-**1967, 1975, 2087 and 2095**. In experiment C they are held out from each of the three simulations. The training years in the
-table above include them, so the models are fitted on 36 (A), 95 (B) and 3 × 36 (C) years.
+**1967, 1975, 2087 and 2095**. In experiment C they are held out from each of the three simulations.

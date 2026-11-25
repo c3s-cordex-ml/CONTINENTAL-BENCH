@@ -1,37 +1,13 @@
 # Requirements
 
-Two Python packages are needed, best installed in separate environments:
+The evaluation uses two Python packages, both under development:
 
 | Package | Used for |
 |---|---|
-| [deep4production](https://github.com/SantanderMetGroup/deep4production) | training the model (`d4p-train`) and producing the predictions (`d4p-downscale`) |
-| [ml-evaluation](https://github.com/c3s-cordex-ml/ml-evaluation) | evaluating the predictions (`ml-eval`) |
+| [ml-evaluation](https://github.com/c3s-cordex-ml/ml-evaluation) | the indices and diagnostics (`indices.py`, `diagnostics.py`) |
+| [ml_c3s384_evaluation](https://github.com/c3s-cordex-ml/ml_c3s384_evaluation) | the command-line tools that run those indices and diagnostics for this benchmark |
 
-Both can be installed with [Pixi](https://pixi.sh) or Conda. Training on GPU is strongly recommended.
-
-## deep4production
-
-```bash
-git clone https://github.com/SantanderMetGroup/deep4production
-cd deep4production
-```
-
-=== "Pixi"
-
-    ```bash
-    pixi install
-    ```
-
-=== "Conda"
-
-    ```bash
-    conda create -n deep4production python=3.12
-    conda activate deep4production
-    pip install -r requirements.txt
-    pip install .
-    ```
-
-For GPU support, install the CUDA build of PyTorch that matches your system (see the deep4production README).
+Install both in the same environment, ml-evaluation first.
 
 ## ml-evaluation
 
@@ -55,3 +31,15 @@ cd ml-evaluation
     ```
 
 A Docker image definition (`Dockerfile`) is also provided in the ml-evaluation repository.
+
+## ml_c3s384_evaluation
+
+In the ml-evaluation environment:
+
+```bash
+git clone https://github.com/c3s-cordex-ml/ml_c3s384_evaluation
+cd ml_c3s384_evaluation
+pip install -e .
+```
+
+Both packages are installed in editable mode (`-e`), so `git pull` in each repository is enough to get the latest version.

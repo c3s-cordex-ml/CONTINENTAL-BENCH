@@ -1,20 +1,20 @@
 # Train your model
 
-Models are trained with [deep4production](https://github.com/SantanderMetGroup/deep4production) (`d4p-train`), on the
-**perfect** predictors and the targets of the training blocks of each experiment (see [Experiments](../introduction/experiments.md)).
-The architecture is free.
+Train your model on the **perfect** predictors and the targets of the training blocks of each experiment (see
+[Experiments](../introduction/experiments.md)). The architecture and the training framework are free.
 
 Things to keep in mind:
 
 - Cells outside the RegCM5-0 domain are NaN in the perfect predictors. Your model must handle them, e.g. by setting them to zero
   after normalisation; at inference, apply the same mask to the imperfect predictors.
-- Validation years: *TBD*.
+- Hold out the validation years 1967, 1975, 2087 and 2095 (see [Experiments](../introduction/experiments.md)).
 - Use the same architecture and training set-up for all target variables of a model. A different approach is a different model,
   with its own name.
 
 ## Configuration files
 
-The exact configuration used to train and to apply the submitted model is part of the submission, in deep4production YAML format:
+The exact configuration used to train and to apply the submitted model is part of the submission, written in the YAML format of
+[deep4production](https://github.com/SantanderMetGroup/deep4production), whatever framework you trained with:
 
 ```
 REPRODUCIBILITY/

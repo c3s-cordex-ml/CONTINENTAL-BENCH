@@ -1,0 +1,13 @@
+/* Section titles (##): full-width rule underneath */
+.md-typeset h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* Sub-section titles (###), e.g. data sources: smaller, in the theme colour */
+.md-typeset h3 {
+  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--md-typeset-a-color);
+  margin-top: 1.6em;
+}
