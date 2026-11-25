@@ -77,4 +77,3 @@ RegCM5-0 output on the 1° `EUR-100` grid; the imperfect predictors drop them be
 | ERA5/1981-2000 | perfect, imperfect | test (evaluation) |
 
 The imperfect predictors of `EC-Earth3-Veg/1981-2000` will be added once the CMIP6 historical fields of EC-Earth3-Veg are available.
-The complete definition of blocks and experiments is in `experiments.yaml` at the root of the repository.
