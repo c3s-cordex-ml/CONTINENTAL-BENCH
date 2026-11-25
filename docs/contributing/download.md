@@ -1,25 +1,15 @@
 # Download data
 
-Each [data block](../introduction/data.md#data-blocks) is distributed as one `.tar` file, named `<driver>_<period>.tar`
-(e.g. `EC-Earth3-Veg_1961-1980.tar`), that unpacks to `<driver>/<period>/`. Download only the blocks you need: the test blocks are
-shared by all experiments, and the training blocks of A are also part of B and C.
+The [data blocks](../introduction/data.md#data-blocks) are copied to your HPC with `rsync`, one directory per block
+(`<driver>/<period>/`). Access is set up per centre: you will receive the `<user>` and `<host>` to use in the commands below.
 
-*Download URL: TBD.*
-
-| Blocks | Needed for |
-|---|---|
-| `mask_EUR-100_ICTP_RegCM5-0_fx.nc` | all |
-| EC-Earth3-Veg 1961-1980, 2080-2099 | A, B, C |
-| EC-Earth3-Veg 2001-2014, 2015-2040, 2061-2079 | B |
-| MPI-ESM1-2-HR 1961-1980, 2080-2099; NorESM2-MM 1961-1980, 2080-2099 | C |
-| EC-Earth3-Veg, MPI-ESM1-2-HR, NorESM2-MM 1981-2000 and 2041-2060; ERA5 1981-2000 | test, all experiments |
+Each experiment needs its training directory, the test blocks and the mask. For example, for experiment A:
 
 ```bash
-URL=TBD
-mkdir -p SOURCE_FILES && cd SOURCE_FILES
-for B in EC-Earth3-Veg_1961-1980 EC-Earth3-Veg_2080-2099; do   # experiment A, training blocks
-  wget "$URL/$B.tar" && tar -xf "$B.tar" && rm "$B.tar"
-done
+mkdir -p SOURCE_FILES
+rsync -avR --progress <user>@<host>:mask_EUR-100_ICTP_RegCM5-0_fx.nc :train/Experiment_A :test SOURCE_FILES/
 ```
 
-The `.nc` files are already compressed, so the archives are plain (uncompressed) tar files.
+For experiment B or C, replace `train/Experiment_A` by `train/Experiment_B` or `train/Experiment_C`; every experiment directory
+contains all its training blocks. `-R` keeps the directory layout under `SOURCE_FILES/`. If the transfer is interrupted, run the same command again: it continues
+where it stopped and skips the files already copied.
