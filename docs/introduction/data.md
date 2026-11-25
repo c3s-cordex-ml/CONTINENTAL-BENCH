@@ -64,41 +64,50 @@ The reference of the ERA5-imperfect test, against which the emulators driven by 
 
 ## Data blocks
 
-The data are organised in **blocks**, one per driver and period, so that every file exists only once and every experiment
-is a list of blocks. A block never mixes historical and scenario years (the split is at 2014/2015).
+The data are organised in **blocks**, one per driver and period, with the predictors and the targets of that period. The
+training blocks are grouped by experiment and the test blocks, common to all experiments, are kept apart. A block never mixes
+historical and scenario years (the split is at 2014/2015).
 
 ```
 SOURCE_FILES/
 ├── mask_EUR-100_ICTP_RegCM5-0_fx.nc
-├── <driver>/
-│   └── <period>/
-│       ├── predictors/
-│       │   ├── predictors_EUR-100_<driver>_<experiment>_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_<start>-<end>.nc   # perfect
-│       │   └── predictors_EUR-100_<driver>_<experiment>_r1i1p1f1_day_<start>-<end>.nc                       # imperfect
-│       └── target/
-│           └── <var>_EUR-12_<driver>_<experiment>_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_<start>-<end>.nc        # one per variable
+├── train/
+│   ├── Experiment_A/
+│   │   └── EC-Earth3-Veg/    1961-1980, 2080-2099
+│   ├── Experiment_B/
+│   │   └── EC-Earth3-Veg/    1961-1980, 2001-2014, 2015-2040, 2061-2079, 2080-2099
+│   └── Experiment_C/
+│       ├── EC-Earth3-Veg/    1961-1980, 2080-2099
+│       ├── MPI-ESM1-2-HR/    1961-1980, 2080-2099
+│       └── NorESM2-MM/       1961-1980, 2080-2099
+└── test/
+    ├── EC-Earth3-Veg/        1981-2000, 2041-2060
+    ├── MPI-ESM1-2-HR/        1981-2000, 2041-2060
+    ├── NorESM2-MM/           1981-2000, 2041-2060
+    └── ERA5/                 1981-2000
+```
+
+Each block directory `<driver>/<period>/` contains:
+
+```
+<driver>/<period>/
+├── predictors/
+│   ├── predictors_EUR-100_<driver>_<scenario>_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_<start>-<end>.nc   # perfect
+│   └── predictors_EUR-100_<driver>_<scenario>_r1i1p1f1_day_<start>-<end>.nc                       # imperfect (test blocks)
+└── target/
+    └── <var>_EUR-12_<driver>_<scenario>_r1i1p1f1_ICTP_RegCM5-0_v1-r1_day_<start>-<end>.nc        # one per variable
 ```
 
 File names follow the CORDEX-CMIP6 data reference syntax (DRS). The perfect predictors keep the RegCM5-0 facets because they are
-RegCM5-0 output on the 1° `EUR-100` grid; the imperfect predictors drop them because no regional model is involved.
+RegCM5-0 output on the 1° `EUR-100` grid; the imperfect predictors drop them because no regional model is involved. Training
+blocks contain perfect predictors only; test blocks contain perfect and imperfect predictors:
 
-| Block | Predictors | Used for |
+| Test block | Perfect | Imperfect |
 |---|---|---|
-| EC-Earth3-Veg/1961-1980 | perfect | training A, B, C |
-| EC-Earth3-Veg/1981-2000 | perfect | test (historical) |
-| EC-Earth3-Veg/2001-2014 | perfect | training B |
-| EC-Earth3-Veg/2015-2040 | perfect | training B |
-| EC-Earth3-Veg/2041-2060 | perfect, imperfect | test (mid-century) |
-| EC-Earth3-Veg/2061-2079 | perfect | training B |
-| EC-Earth3-Veg/2080-2099 | perfect | training A, B, C |
-| MPI-ESM1-2-HR/1961-1980 | perfect | training C |
-| MPI-ESM1-2-HR/1981-2000 | perfect, imperfect | test (historical) |
-| MPI-ESM1-2-HR/2041-2060 | perfect, imperfect | test (mid-century) |
-| MPI-ESM1-2-HR/2080-2099 | perfect | training C |
-| NorESM2-MM/1961-1980 | perfect | training C |
-| NorESM2-MM/1981-2000 | perfect, imperfect | test (historical) |
-| NorESM2-MM/2041-2060 | perfect, imperfect | test (mid-century) |
-| NorESM2-MM/2080-2099 | perfect | training C |
-| ERA5/1981-2000 | perfect, imperfect | test (evaluation) |
-
-The imperfect predictors of `EC-Earth3-Veg/1981-2000` will be added once the CMIP6 historical fields of EC-Earth3-Veg are available.
+| EC-Earth3-Veg/1981-2000 | ✔ | *pending* |
+| EC-Earth3-Veg/2041-2060 | ✔ | ✔ |
+| MPI-ESM1-2-HR/1981-2000 | ✔ | ✔ |
+| MPI-ESM1-2-HR/2041-2060 | ✔ | ✔ |
+| NorESM2-MM/1981-2000 | ✔ | ✔ |
+| NorESM2-MM/2041-2060 | ✔ | ✔ |
+| ERA5/1981-2000 | ✔ | ✔ |
