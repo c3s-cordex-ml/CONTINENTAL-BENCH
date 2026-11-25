@@ -5,9 +5,10 @@ The benchmark combines five datasets: three sources of **predictors** on a commo
 
 ![Predictors and targets](../images/data_maps.png)
 
-*15 January 1995. Top: predictor `ta850` from RegCM5-0 upscaled to 1° (perfect), from the driving GCM and from ERA5 (imperfect).
-Bottom: target `tas` from RegCM5-0, and ERA5-Land. Blue: data used for training and for the perfect test; orange: imperfect test;
-green: ground truth.*
+*Top: predictor `ta850` from RegCM5-0 upscaled to 1° (perfect), from the driving GCM and from ERA5 (imperfect). Bottom: target
+`tas` from RegCM5-0, and ERA5-Land. Blue: data used for training and for the perfect test; orange: imperfect test; green: ground
+truth. For illustration, the GCM-driven panels show the EC-Earth3-Veg simulation on 15 January 2050 and the ERA5 panel shows
+15 January 1995.*
 
 ## Predictors
 
