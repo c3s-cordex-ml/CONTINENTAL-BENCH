@@ -1,0 +1,12 @@
+# data and large outputs never go to GitHub
+*.nc
+*.nc.tmp
+*.tar
+SOURCE_FILES/
+AI_READY_DATASETS/
+PREDICTIONS/
+
+# logs, caches, build
+logs/
+__pycache__/
+site/

@@ -1,0 +1,65 @@
+site_name: CONTINENTAL-BENCH
+site_description: Benchmark of machine-learning emulators of the RegCM5-0 EURO-CORDEX simulations (CORDEX-CORE-CMIP6)
+site_url: https://c3s-cordex-ml.github.io/CONTINENTAL-BENCH/
+repo_url: https://github.com/c3s-cordex-ml/CONTINENTAL-BENCH
+repo_name: c3s-cordex-ml/CONTINENTAL-BENCH
+edit_uri: edit/main/docs/
+docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Introduction:
+      - introduction/index.md
+      - Data: introduction/data.md
+      - Experiments: introduction/experiments.md
+      - Predictions: introduction/predictions.md
+      - Evaluation: introduction/evaluation.md
+      - Requirements: introduction/requirements.md
+  - Contributing:
+      - contributing/index.md
+      - Download data: contributing/download.md
+      - Train your model: contributing/training.md
+      - Prepare your predictions: contributing/predictions.md
+      - Evaluate your predictions: contributing/evaluation.md
+      - Submit your evaluation outputs: contributing/submission.md
+  - Results:
+      - results/index.md
+      - Scoreboards: results/scoreboards.md
+      - Validation portal: results/validation-portal.md

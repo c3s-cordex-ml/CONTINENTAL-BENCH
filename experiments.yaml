@@ -1,0 +1,43 @@
+# CONTINENTAL-BENCH: RegCM5-0 EUR-12 (CORDEX-CORE-CMIP6). Each block is SOURCE_FILES/<driver>/<period>/
+# with predictors/ and target/ files named after the CORDEX-CMIP6 DRS; one .tar per block is shared.
+# Blocks never cross 2014/2015 (historical/ssp370).
+
+predictors: [zg850, zg700, zg500, zg250, ta850, ta700, ta500, ta250, ua850, ua700, ua500, ua250,
+             va850, va700, va500, va250, hus850, hus700, hus500, hus250]
+targets: [uas, vas, tas, pr, hurs, psl, rsds, rlds, sfcWind, tasmax, tasmin]
+
+blocks:  # <driver>/<period>: predictor modes
+  EC-Earth3-Veg/1961-1980: [perfect]
+  EC-Earth3-Veg/1981-2000: [perfect]               # no CMIP6 historical for EC-Earth3-Veg
+  EC-Earth3-Veg/2001-2014: [perfect]
+  EC-Earth3-Veg/2015-2040: [perfect]
+  EC-Earth3-Veg/2041-2060: [perfect, imperfect]
+  EC-Earth3-Veg/2061-2079: [perfect]
+  EC-Earth3-Veg/2080-2099: [perfect]               # ends 2099-11-30
+  MPI-ESM1-2-HR/1961-1980: [perfect]
+  MPI-ESM1-2-HR/1981-2000: [perfect, imperfect]
+  MPI-ESM1-2-HR/2041-2060: [perfect, imperfect]
+  MPI-ESM1-2-HR/2080-2099: [perfect]
+  NorESM2-MM/1961-1980: [perfect]
+  NorESM2-MM/1981-2000: [perfect, imperfect]
+  NorESM2-MM/2041-2060: [perfect, imperfect]
+  NorESM2-MM/2080-2099: [perfect]
+  ERA5/1981-2000: [perfect, imperfect]
+
+experiments:
+  A:
+    train: [EC-Earth3-Veg/1961-1980, EC-Earth3-Veg/2080-2099]
+    validation_years: []  # TBD
+  B:
+    train: [EC-Earth3-Veg/1961-1980, EC-Earth3-Veg/2001-2014, EC-Earth3-Veg/2015-2040, EC-Earth3-Veg/2061-2079, EC-Earth3-Veg/2080-2099]
+    validation_years: []  # TBD
+  C:
+    train: [EC-Earth3-Veg/1961-1980, EC-Earth3-Veg/2080-2099,
+            MPI-ESM1-2-HR/1961-1980, MPI-ESM1-2-HR/2080-2099,
+            NorESM2-MM/1961-1980, NorESM2-MM/2080-2099]
+    validation_years: []  # TBD
+
+test:  # common to all experiments
+  historical: [EC-Earth3-Veg/1981-2000, MPI-ESM1-2-HR/1981-2000, NorESM2-MM/1981-2000]
+  mid_century: [EC-Earth3-Veg/2041-2060, MPI-ESM1-2-HR/2041-2060, NorESM2-MM/2041-2060]
+  evaluation: [ERA5/1981-2000]
