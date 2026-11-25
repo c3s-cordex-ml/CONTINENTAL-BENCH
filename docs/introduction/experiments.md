@@ -17,4 +17,6 @@ same blocks (see [Predictions](predictions.md)). Training always uses **perfect*
 
 ## Validation years
 
-*TBD.* The years held out from training for validation (early stopping, model selection) will be fixed per experiment.
+The same four years are held out from the training blocks for validation (early stopping, model selection) in all experiments:
+**1967, 1975, 2087 and 2095**. In experiment C they are held out from each of the three simulations. The training years in the
+table above include them, so the models are fitted on 36 (A), 95 (B) and 3 × 36 (C) years.
