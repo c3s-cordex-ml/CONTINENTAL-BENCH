@@ -5,13 +5,15 @@ metrics as zarr stores.
 
 ## Evaluation cases
 
-| Case | ml-eval modes | Reference |
-|---|---|---|
-| `EC-Earth3-Veg_perfect_2041-2060` | fast, slow, prob, multivar | RegCM5-0 driven by EC-Earth3-Veg |
-| `ERA5_perfect_1981-2000` | fast, slow, prob, multivar | RegCM5-0 driven by ERA5 |
-| `ERA5_imperfect_1981-2000` | fast, slow, prob, multivar | ERA5-Land (*source TBD*) |
-| `<GCM>_perfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
-| `<GCM>_imperfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
+Each [prediction experiment](experiments.md#prediction-experiments) is evaluated as one or more cases:
+
+| Prediction experiment | Case | ml-eval modes | Reference |
+|---|---|---|---|
+| Downscaling skill (perfect) | `EC-Earth3-Veg_perfect_2041-2060` | fast, slow, prob, multivar | RegCM5-0 driven by EC-Earth3-Veg |
+| Transferability of the downscaling (perfect) | `ERA5_perfect_1981-2000` | fast, slow, prob, multivar | RegCM5-0 driven by ERA5 |
+| Transferability of the downscaling (imperfect) | `ERA5_imperfect_1981-2000` | fast, slow, prob, multivar | ERA5-Land (*source TBD*) |
+| Climate change signal analysis | `<GCM>_perfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
+| | `<GCM>_imperfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
 
 - **fast**: RMSE, spectral error and biases of the mean, extremes and autocorrelation.
 - **slow**: distribution scores and additional variable-specific biases.

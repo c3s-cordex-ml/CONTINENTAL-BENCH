@@ -52,7 +52,6 @@ nav:
       - introduction/index.md
       - Data: introduction/data.md
       - Experiments: introduction/experiments.md
-      - Predictions: introduction/predictions.md
       - Evaluation: introduction/evaluation.md
       - Requirements: introduction/requirements.md
   - Contributing:
