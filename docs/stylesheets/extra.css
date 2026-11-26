@@ -24,3 +24,8 @@
   font-size: 0.85em;
   color: var(--md-default-fg-color--light);
 }
+
+/* Test-blocks table: experiment links of the skill and transferability experiments keep the red colour */
+.md-typeset .skill a {
+  color: inherit;
+}
