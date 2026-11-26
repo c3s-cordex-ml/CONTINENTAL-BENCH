@@ -12,8 +12,8 @@ Each [prediction experiment](experiments.md#prediction-experiments) is evaluated
 | 1. Period transferability | `EC-Earth3-Veg_perfect_2041-2060` | fast, slow, prob, multivar | RegCM5-0 driven by EC-Earth3-Veg |
 | 2a. Driver transferability, perfect | `ERA5_perfect_1981-2000` | fast, slow, prob, multivar | RegCM5-0 driven by ERA5 |
 | 2b. Driver transferability, imperfect | `ERA5_imperfect_1981-2000` | fast, slow, prob, multivar | ERA5-Land (*source TBD*) |
-| 3. Period and GCM transferability | `<GCM>_perfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
-| | `<GCM>_imperfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
+| 3a. Period and GCM transferability, perfect | `<GCM>_perfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
+| 3b. Period and GCM transferability, imperfect | `<GCM>_imperfect_1981-2000_2041-2060` | signal | climate-change signal of RegCM5-0 driven by the same GCM |
 
 - **fast**: RMSE, spectral error and biases of the mean, extremes and autocorrelation.
 - **slow**: distribution scores and additional variable-specific biases.

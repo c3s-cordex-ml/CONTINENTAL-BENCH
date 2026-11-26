@@ -47,7 +47,9 @@ A driver not seen in training: the ERA5 reanalysis.
 
 Two periods not seen in training (1981-2000 and 2041-2060) and driving GCMs not seen in training.
 
-- **Blocks:** 1981-2000 and 2041-2060 of EC-Earth3-Veg, MPI-ESM1-2-HR and NorESM2-MM, with perfect and imperfect predictors.
+- **3a. Perfect:** blocks 1981-2000 and 2041-2060 of EC-Earth3-Veg, MPI-ESM1-2-HR and NorESM2-MM, perfect predictors.
+- **3b. Imperfect:** blocks 1981-2000 and 2041-2060 of MPI-ESM1-2-HR and NorESM2-MM, imperfect predictors. EC-Earth3-Veg
+  will be added with its historical imperfect predictors.
 
 #### Test blocks {#test-blocks}
 
@@ -55,12 +57,12 @@ Each cell gives the prediction experiments that use the prediction of that block
 
 | Block | Perfect | Imperfect |
 |---|---|---|
-| EC-Earth3-Veg/1981-2000 | [3](#exp-3) | *pending* |
-| MPI-ESM1-2-HR/1981-2000 | [3](#exp-3) | [3](#exp-3) |
-| NorESM2-MM/1981-2000 | [3](#exp-3) | [3](#exp-3) |
-| EC-Earth3-Veg/2041-2060 | <span class="skill">[1](#exp-1)</span>, [3](#exp-3) | [3](#exp-3) |
-| MPI-ESM1-2-HR/2041-2060 | [3](#exp-3) | [3](#exp-3) |
-| NorESM2-MM/2041-2060 | [3](#exp-3) | [3](#exp-3) |
+| EC-Earth3-Veg/1981-2000 | [3a](#exp-3) | *pending* |
+| MPI-ESM1-2-HR/1981-2000 | [3a](#exp-3) | [3b](#exp-3) |
+| NorESM2-MM/1981-2000 | [3a](#exp-3) | [3b](#exp-3) |
+| EC-Earth3-Veg/2041-2060 | <span class="skill">[1](#exp-1)</span>, [3a](#exp-3) | [3b](#exp-3) |
+| MPI-ESM1-2-HR/2041-2060 | [3a](#exp-3) | [3b](#exp-3) |
+| NorESM2-MM/2041-2060 | [3a](#exp-3) | [3b](#exp-3) |
 | ERA5/1981-2000 | <span class="skill">[2a](#exp-2)</span> | <span class="skill">[2b](#exp-2)</span> |
 
 That is 13 predictions per model and training experiment (14 once the EC-Earth3-Veg historical imperfect predictors are
