@@ -5,6 +5,8 @@
 SOURCE_FILES/
 AI_READY_DATASETS/
 PREDICTIONS/
+*/outputs/
+*.pt
 
 # logs, caches, build
 logs/

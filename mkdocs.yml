@@ -56,12 +56,14 @@ nav:
       - Requirements: introduction/requirements.md
   - Contributing:
       - contributing/index.md
-      - Download data: contributing/download.md
-      - Train your model: contributing/training.md
-      - Prepare your predictions: contributing/predictions.md
-      - Evaluate your predictions: contributing/evaluation.md
+      - Prepare your submission:
+          - Download data: contributing/download.md
+          - Train your model: contributing/training.md
+          - Prepare your predictions: contributing/predictions.md
+          - Evaluate your predictions: contributing/evaluation.md
+          - Reproducibility: contributing/reproducibility.md
+      - Worked example: contributing/example.md
       - Submit your evaluation outputs: contributing/submission.md
-      - Reproducibility: contributing/reproducibility.md
   - Results:
       - results/index.md
       - Scoreboards: results/scoreboards.md

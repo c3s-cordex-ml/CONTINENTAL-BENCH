@@ -6,7 +6,7 @@ The exact configuration used to train and to apply the submitted model is part o
 ```
 REPRODUCIBILITY/
 └── Experiment_<A|B|C>/
-    └── <MODEL>/            # same <MODEL> name as in EVALUATIONS/ and in the prediction files
+    └── <institution_id>-<emulator_id>/   # as in the prediction file names, e.g. CSIC-CorrDiff; also used in EVALUATIONS/
         ├── train.yaml      # the configuration the submitted model was trained with
         └── inference.yaml  # example: ERA5 imperfect predictors, block ERA5/1981-2000
 ```
@@ -14,4 +14,5 @@ REPRODUCIBILITY/
 - Exactly one `train.yaml` and one `inference.yaml` per model and experiment; overwrite them when you retrain.
 - `inference.yaml` is the ERA5-imperfect case only; the other test cases differ just in the input data and output file.
 - Paths are relative to the root of the repository, never absolute to your filesystem.
-- `<MODEL>` may contain letters, digits and `-`, but no `_` (it is a facet of the DRS file names).
+- The folder is named `<institution_id>-<emulator_id>`, with the two facets of your prediction file names (e.g. `CSIC-CorrDiff`,
+  `UiB-CorrDiff`).

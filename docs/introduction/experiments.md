@@ -66,7 +66,8 @@ Each cell gives the prediction experiments that use the prediction of that block
 | ERA5/1981-2000 | <span class="skill">[2a](#exp-2)</span> | <span class="skill">[2b](#exp-2)</span> |
 
 That is 13 predictions per model and training experiment (14 once the EC-Earth3-Veg historical imperfect predictors are
-available), each covering the 11 target variables with **1 member** (deterministic models) or **5 members** (ensembles) (see
+available), each covering the 11 target variables with **1 member** (deterministic models) or **5 members** (ensembles), one file per
+member (see
 [Prepare your predictions](../contributing/predictions.md)).
 
 Predictions stay at each centre: they are neither uploaded to GitHub nor shared. Only their evaluation outputs are submitted
