@@ -6,14 +6,15 @@ Usage:
 
 File names follow the Impetus4Change DRS for emulator output (https://doi.org/10.5281/zenodo.18230654):
 
-    <var>_<domain>_<driving_source_id>_<driving_experiment_id>_<driving_variant_label>_<institution_id>_
-    <target_source_id>-emul-<emulator_id>-<A|B|C>_v<version>-r<member>_<frequency>_<start>-<end>.nc
+    <var>_<domain>_<driving_source_id>_<driving_experiment_id>_<driving_variant_label>_<institution_id>_<source_id>_<version_realization>_<frequency>_<start>-<end>.nc
+
+with <source_id> = <target_source_id>-emul-<emulator_id>-<training_id> and <version_realization> = v1-r<N>.
 
 e.g. tas_EUR-12_MPI-ESM1-2-HR_ssp370_r1i1p1f1_CSIC_RegCM5-0-emul-CorrDiff-A_v1-r1_day_20410101-20601231.nc
 
 - <driving_source_id> is the driver of the target file (imperfect predictors) or UPS-<target_source_id>-<driver>
   (perfect predictors, e.g. UPS-RegCM5-0-MPI-ESM1-2-HR).
-- <emulator_id> contains only letters and digits; <A|B|C> is the training experiment.
+- <emulator_id> contains only letters and digits; <training_id> is the training experiment: A, B or C.
 - One file per member: r1 to r5 (deterministic models: r1 only).
 
 The target file (SOURCE_FILES/test/<driver>/<period>/target/<var>_*.nc) is the template for the contents: the same
