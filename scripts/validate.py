@@ -4,6 +4,13 @@
 Usage:
     python validate.py <prediction.nc> --target <target.nc>
 
+The prediction file is named after the target file of the same block, with the regional-model facets replaced by the
+model name, the training experiment and the predictor type:
+
+    <var>_<domain>_<driver>_<experiment>_<variant>_<MODEL>_<A|B|C>-<perfect|imperfect>_<frequency>_<start>-<end>.nc
+
+e.g. tas_EUR-12_MPI-ESM1-2-HR_ssp370_r1i1p1f1_UNET_A-imperfect_day_20410101-20601231.nc
+
 The target file (SOURCE_FILES/test/<driver>/<period>/target/<var>_*.nc) is the template. The prediction must hold the
 same variable, in the same units, on the same grid. Ensembles add a leading dimension `member` of size 5; deterministic
 models may leave it out or give it size 1:
@@ -17,6 +24,8 @@ Each check prints OK or FAIL. The exit code is 1 if any check fails, 0 otherwise
 Requirements: numpy, xarray, netCDF4, cftime.
 """
 import argparse
+import os
+import re
 import sys
 
 import numpy as np
@@ -25,6 +34,14 @@ import xarray as xr
 DIMS = ("member", "time", "rlat", "rlon")
 N_MEMBERS = (1, 5)  # accepted sizes of the member dimension (absent = 1 member)
 CHUNK = 100  # days read at a time when the prediction file has no internal chunks
+
+# <var>_<domain>_<driver>_<experiment>_<variant>_<MODEL>_<A|B|C>-<perfect|imperfect>_<frequency>_<start>-<end>.nc
+PRED_NAME = re.compile(r"^(?P<var>[^_]+)_(?P<domain>[^_]+)_(?P<driver>[^_]+)_(?P<experiment>[^_]+)_(?P<variant>[^_]+)_"
+                       r"(?P<model>[A-Za-z0-9-]+)_(?P<training>[ABC])-(?P<predictors>perfect|imperfect)_"
+                       r"(?P<frequency>[^_]+)_(?P<dates>\d{8}-\d{8})\.nc$")
+# CORDEX-CMIP6 DRS of the target files:
+# <var>_<domain>_<driver>_<experiment>_<variant>_<institution>_<rcm>_<version>_<frequency>_<start>-<end>.nc
+TARGET_FACETS = ("var", "domain", "driver", "experiment", "variant", "institution", "rcm", "version", "frequency", "dates")
 
 
 class Report:
@@ -51,6 +68,21 @@ def same(a, b):
 
 def day(t):
     return f"{t.year:04d}-{t.month:02d}-{t.day:02d}"
+
+
+def check_filename(rep, pred_path, targ_path):
+    name, tname = os.path.basename(pred_path), os.path.basename(targ_path)
+    m = PRED_NAME.match(name)
+    if not rep.check(m is not None, "file name follows <var>_<domain>_<driver>_<experiment>_<variant>_<MODEL>_"
+                                    "<A|B|C>-<perfect|imperfect>_<frequency>_<start>-<end>.nc"):
+        return
+    parts = tname[:-3].split("_") if tname.endswith(".nc") else []
+    if len(parts) != len(TARGET_FACETS):
+        raise ValueError(f"target file name {tname} does not follow the CORDEX-CMIP6 DRS")
+    target = dict(zip(TARGET_FACETS, parts))
+    diff = [f"{k} '{m[k]}' (target '{target[k]}')" for k in ("var", "domain", "driver", "experiment", "variant",
+                                                               "frequency", "dates") if m[k] != target[k]]
+    rep.check(not diff, "file name facets match the target file" + ("" if not diff else ": " + ", ".join(diff)))
 
 
 def check_metadata(rep, pred, targ, var):
@@ -133,6 +165,7 @@ def main():
     print(f"== {args.prediction}\n   target: {args.target}")
     targ = xr.open_dataset(args.target, use_cftime=True)
     var = main_var(targ)
+    check_filename(rep, args.prediction, args.target)
     try:
         pred = xr.open_dataset(args.prediction, use_cftime=True)
     except Exception as e:

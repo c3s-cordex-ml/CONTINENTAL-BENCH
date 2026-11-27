@@ -18,7 +18,8 @@ For example, `tas` predicted by model `UNET`, trained in experiment A, from the 
 tas_EUR-12_MPI-ESM1-2-HR_ssp370_r1i1p1f1_UNET_A-imperfect_day_20410101-20601231.nc
 ```
 
-`<driver>`, `<experiment>`, `<start>` and `<end>` are those of the target file of the same block.
+`<driver>`, `<experiment>`, `<start>` and `<end>` are those of the target file of the same block. `<MODEL>` contains only
+letters, digits and hyphens (e.g. `UNET`, `My-UNet2`).
 
 ## File contents
 
@@ -57,13 +58,15 @@ before evaluating it. It needs `numpy`, `xarray`, `netCDF4` and `cftime`.
 3. Read the report. Each check prints `OK` or `FAIL`, and the last line summarises them:
 
     ```
+    OK   file name follows <var>_<domain>_<driver>_<experiment>_<variant>_<MODEL>_<A|B|C>-<perfect|imperfect>_<frequency>_<start>-<end>.nc
+    OK   file name facets match the target file
     OK   variable 'tas' present
     OK   units 'K' (target 'K')
     OK   dimensions ('member', 'time', 'rlat', 'rlon') (expected ('member', 'time', 'rlat', 'rlon') or ('time', 'rlat', 'rlon'))
     OK   5 members (expected 1 or 5)
     ...
     OK   no missing values where the target has data (0 found)
-    == SUMMARY tas: 0 FAIL, 15 OK
+    == SUMMARY tas: 0 FAIL, 17 OK
     ```
 
 4. Fix every `FAIL` and run it again. The script exits with code 0 when all checks pass and 1 otherwise.

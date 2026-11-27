@@ -61,6 +61,7 @@ nav:
       - Prepare your predictions: contributing/predictions.md
       - Evaluate your predictions: contributing/evaluation.md
       - Submit your evaluation outputs: contributing/submission.md
+      - Reproducibility: contributing/reproducibility.md
   - Results:
       - results/index.md
       - Scoreboards: results/scoreboards.md
